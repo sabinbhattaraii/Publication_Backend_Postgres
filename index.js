@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import { port } from './config/sconfig.js';
 
 const app = express()
 
