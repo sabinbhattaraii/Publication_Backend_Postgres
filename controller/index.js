@@ -1,1 +1,1 @@
-export * from "./stripeController.js";
+export * as stripeController from "./stripeController.js";

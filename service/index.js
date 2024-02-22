@@ -1,1 +1,1 @@
-export * from "./stripeService.js";
+export * as stripeService from "./stripeService.js";

@@ -2,7 +2,7 @@ import { HttpStatus } from "../constant/constant.js";
 import successResponseData from "../helper/successResponseData.js";
 import catchAsyncErrors from "../middleware/catchAsyncError.js";
 import { sendErrResponseByMsg } from "../middleware/errorMiddleware.js";
-import { createPaymentIntentService } from "../service/index.js"; 
+import { stripeService } from "../service/index.js"; 
 
 export const createPaymentIntent = catchAsyncErrors(async (req, res) => {
   const { amount, items } = req.body;
@@ -20,7 +20,7 @@ export const createPaymentIntent = catchAsyncErrors(async (req, res) => {
       return; // Return to prevent further execution
     }
 
-    const paymentIntent = await createPaymentIntentService(amount, items);
+    const paymentIntent = await stripeService.createPaymentIntentService(amount, items);
 
     successResponseData({
       res: res,
