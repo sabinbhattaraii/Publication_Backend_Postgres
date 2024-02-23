@@ -112,6 +112,8 @@ export async function handleWebhookEvent(payload,sig,endpointSecret) {
       );
     }
     const event = await stripe.webhooks.constructEvent(payload, sig, endpointSecret);
+
+    console.log("Event :",event);
     return event;
   } catch (error) {
     console.error('Webhook Error:', error.message);

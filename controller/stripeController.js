@@ -74,16 +74,12 @@ export const handleWebhook = catchAsyncErrors(async (req, res) => {
   const payload = req.body;
   const endpointSecret = signing_secret;
   try {
-    if (!sig) {
+    if (!sig || !payload || !endpointSecret) {
       sendErrResponseByMsg(
         res,
-        "Signature is required",
+        "Signature, Payload, and Endpoint Secret are required",
         HttpStatus.BAD_REQUEST
       );
-      return;
-    }
-    if (!payload) {
-      sendErrResponseByMsg(res, "PayLoad is required", HttpStatus.BAD_REQUEST);
       return;
     }
 
