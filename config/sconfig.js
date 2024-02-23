@@ -9,3 +9,4 @@ export const apiVersion = process.env.API_VERSION
 // Stripe Configurations 
 export const stripe_key = process.env.STRIPE_KEY
 export const website_base_url = process.env.WEBSITE_BASE_URL || "localhost:5000"
+export const signing_secret = process.env.SIGNING_SECRET
