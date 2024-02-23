@@ -85,3 +85,36 @@ export async function createCheckoutSessionService(amount, items) {
     throw error;
   }
 }
+
+export async function handleWebhookEvent(payload,sig,endpointSecret) {
+  try {
+     if (!payload) {
+      sendErrResponseByMsg(
+        res,
+        "Payload Not Found or Not Provided",
+        HttpStatus.NOT_FOUND
+      );
+    }
+
+     if (!sig) {
+      sendErrResponseByMsg(
+        res,
+        "Signature Not Found or Not Provided..",
+        HttpStatus.NOT_FOUND
+      );
+    }
+
+     if (!endpointSecret) {
+      sendErrResponseByMsg(
+        res,
+        "End Point Secret Not Found or Not Provided",
+        HttpStatus.NOT_FOUND
+      );
+    }
+    const event = await stripe.webhooks.constructEvent(payload, sig, endpointSecret);
+    return event;
+  } catch (error) {
+    console.error('Webhook Error:', error.message);
+    throw error;
+  }
+}
