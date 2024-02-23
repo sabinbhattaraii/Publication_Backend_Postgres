@@ -56,7 +56,7 @@ export async function createPaymentIntentService(amount, items) {
   }
 }
 
-export async function createCheckoutSession(amount, items) {
+export async function createCheckoutSessionService(amount, items) {
   try {
     const lineItems = generateLineItemsService(items);
 
