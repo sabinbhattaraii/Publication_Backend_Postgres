@@ -1,5 +1,5 @@
 import Stripe from "stripe";
-import { stripe_key } from "../config/sconfig.js";
+import { stripe_key, website_base_url } from "../config/sconfig.js";
 import { sendErrResponseByMsg } from "../middleware/errorMiddleware.js";
 import { HttpStatus } from "../constant/constant.js";
 
@@ -52,6 +52,34 @@ export async function createPaymentIntentService(amount, items) {
     return paymentIntent;
   } catch (error) {
     console.error("Error creating payment intent:", error);
+    throw error;
+  }
+}
+
+export async function createCheckoutSession(amount, items) {
+  try {
+    const lineItems = generateLineItemsService(items);
+
+    if (!lineItems) {
+      sendErrResponseByMsg(
+        res,
+        "Failed to retrive line items",
+        HttpStatus.NOT_FOUND
+      );
+    }
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items: lineItems,
+      mode: "payment",
+      success_url: `${website_base_url}/success`,
+      cancel_url: `${website_base_url}/failure`,
+    });
+
+    console.log(" CheckOut Session:", session);
+    return session;
+  } catch (error) {
+    console.error("Error creating checkout session:", error);
     throw error;
   }
 }

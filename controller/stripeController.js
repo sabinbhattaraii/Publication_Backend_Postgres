@@ -26,7 +26,7 @@ export const createPaymentIntent = catchAsyncErrors(async (req, res) => {
       res: res,
       message: "Payment Intent Created Successfully",
       status: HttpStatus.CREATED,
-      data: paymentIntent.client_secret,
+      data: { clientSecret : paymentIntent.client_secret }
     });
   } catch (error) {
     sendErrResponseByMsg(res, error.message, HttpStatus.INTERNAL_SERVER_ERROR);
