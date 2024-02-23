@@ -31,7 +31,7 @@ async function generateLineItemsService(items) {
 
 export async function createPaymentIntentService(amount, items) {
   try {
-    const lineItems = generateLineItemsService(items);
+    const lineItems = await generateLineItemsService(items);
 
     if (!lineItems) {
       sendErrResponseByMsg(
@@ -58,7 +58,7 @@ export async function createPaymentIntentService(amount, items) {
 
 export async function createCheckoutSessionService(amount, items) {
   try {
-    const lineItems = generateLineItemsService(items);
+    const lineItems = await generateLineItemsService(items);
 
     if (!lineItems) {
       sendErrResponseByMsg(
@@ -68,12 +68,14 @@ export async function createCheckoutSessionService(amount, items) {
       );
     }
 
+    console.log("line items --------------------",lineItems)
+
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
+      payment_method_types: ['card'],
+      mode: 'payment',
       line_items: lineItems,
-      mode: "payment",
-      success_url: `${website_base_url}/success`,
-      cancel_url: `${website_base_url}/failure`,
+      success_url:"https://www.google.com",
+      cancel_url: "https://www.google.com",
     });
 
     console.log(" CheckOut Session:", session);

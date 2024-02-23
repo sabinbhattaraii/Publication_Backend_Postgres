@@ -61,7 +61,8 @@ export const createCheckoutSession = catchAsyncErrors(async (req, res) => {
       res: res,
       message: "Checkout Session Created Successfully:",
       status: HttpStatus.CREATED,
-      data: { sessionId: session.id },
+      data: { sessionId: session.id,
+              url: session.url },
     });
   } catch (error) {
     sendErrResponseByMsg(res, error.message, HttpStatus.INTERNAL_SERVER_ERROR);
