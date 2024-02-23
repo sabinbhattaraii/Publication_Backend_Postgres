@@ -100,6 +100,23 @@ export const handleWebhook = catchAsyncErrors(async (req, res) => {
         const failedPaymentIntent = event.data.object;
         console.log("Failed Payment Intent:", failedPaymentIntent.id);
         break;
+      case "checkout.session.completed":
+        const session = event.data.object;
+        const customerId = session.customer;
+        const paymentIntentId = session.payment_intent;
+        const lineItems = session.display_items;
+        console.log(
+          "Checkout Session completed:",
+          session.id,
+          customerId,
+          paymentIntentId,
+          lineItems
+        );
+        break;
+      case "checkout.session.failed":
+        const failedsession = event.data.object;
+        console.log("Checkout Session failed:", failedsession.id);
+        break;
       default:
         console.log(`Unhandled event type: ${(await event).type}`);
     }
