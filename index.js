@@ -4,6 +4,7 @@ import cors from 'cors';
 import { port,apiVersion } from './config/sconfig.js';
 import { sequelize } from './connectDb/dbPostgres.js';
 import apiRouter from './router/index.js';
+import errorMiddleware from './middleware/errorMiddleware.js';
 // import { stripeController } from './controller/index.js';
 
 const app = express()
@@ -28,6 +29,9 @@ app.use(`${apiVersion}`,apiRouter)
 app.get('/',(req,res) => {
     res.send('HomePage')
 })
+
+// Error handling middleware
+app.use(errorMiddleware)
 
 const initApp = async() => {
     console.log("Testing the database connection..............");
