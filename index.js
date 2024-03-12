@@ -4,6 +4,7 @@ import cors from 'cors';
 import { port,apiVersion } from './config/sconfig.js';
 import { sequelize } from './connectDb/dbPostgres.js';
 import apiRouter from './router/index.js';
+// import { stripeController } from './controller/index.js';
 
 const app = express()
 
@@ -13,6 +14,9 @@ app.use(cors({
     methods : 'GET, POST, PUT, PATCH, DELETE',
     credentials : true
 }));
+
+// WebHook route
+// app.post("/webhook",bodyParser.raw({ type : 'application/json'}),stripeController.handleWebhook)
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({

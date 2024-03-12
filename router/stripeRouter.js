@@ -14,9 +14,7 @@ stripeRouter
     .post(stripeController.createCheckoutSession)
 
 stripeRouter
-    .use(bodyParser.raw({ type : 'application/json'}))
     .route("/webhook")
-    .post(stripeController.handleWebhook)
+    .post(bodyParser.raw({ type : 'application/json'}),stripeController.handleWebhook)
 
-    
 export default stripeRouter;

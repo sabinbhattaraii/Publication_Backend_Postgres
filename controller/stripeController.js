@@ -73,8 +73,12 @@ export const handleWebhook = catchAsyncErrors(async (req, res) => {
   const sig = req.headers["stripe-signature"];
   const payload = req.body;
   const endpointSecret = signing_secret;
+  console.log("signature ---------------",sig)
+  console.log("payload----------------",payload)
+  console.log("endpointsecreat-------------",endpointSecret)
   try {
     if (!sig || !payload || !endpointSecret) {
+      console.log("hhhdjfhkjhdfkjhsfkjhfdk")
       sendErrResponseByMsg(
         res,
         "Signature, Payload, and Endpoint Secret are required",
@@ -82,15 +86,15 @@ export const handleWebhook = catchAsyncErrors(async (req, res) => {
       );
       return;
     }
-
     const event = stripeService.handleWebhookEvent(
       payload,
       sig,
       endpointSecret
     );
-    console.log("Event : ", event);
+    
+    console.log("Event : --------", event);
 
-    switch ((await event).type) {
+    switch (event.type) {
       case "payment_intent.succeeded":
         const paymentIntent = event.data.object;
         // await save to database
