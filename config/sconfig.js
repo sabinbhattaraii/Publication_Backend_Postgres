@@ -6,6 +6,8 @@ export const port = process.env.PORT
 export const base_url = process.env.BASE_URL || "localhost:5000";
 export const apiVersion = process.env.API_VERSION
 
+export const staticFolder = "./public";
+
 // Stripe Configurations 
 export const stripe_key = process.env.STRIPE_KEY
 export const website_base_url = process.env.WEBSITE_BASE_URL || "localhost:5000"
