@@ -5,6 +5,7 @@ config()
 export const port = process.env.PORT
 export const base_url = process.env.BASE_URL || "localhost:5000";
 export const apiVersion = process.env.API_VERSION
+export const serverBaseUrl = process.env.SERVER_BASE_URL
 
 export const staticFolder = "./public";
 
